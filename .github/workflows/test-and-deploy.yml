@@ -1,0 +1,48 @@
+name: Test and Deploy
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        services:
+            mongodb:
+                image: mongo:latest
+                ports:
+                    - 27017:27017
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '21'
+
+            - name: Install dependencies
+              run: |
+                  npm i -g pnpm
+                  cd users && pnpm i
+                  cd ../todos && pnpm i
+
+            - name: Wait for MongoDB to be ready
+              run: |
+                  until nc -z localhost 27017; do echo "Waiting for MongoDB..."; sleep 5; done
+
+            - name: Wait for services to be ready
+              run: |
+                  until curl -s https://apis.users.demo.meanii.dev/users/v1/healthcheck; do echo 'Waiting for users service...'; sleep 5; done
+
+            - name: Run tests
+              env:
+                  MONGO_URI_TEST_USERS_SVC: mongodb://localhost:27017/users-test
+                  MONGO_URI_TEST_TODOS_SVC: mongodb://localhost:27017/todos-test
+                  USER_SERVICE_URL: https://apis.users.demo.meanii.dev
+              run: |
+                  cd users && pnpm test
+                  cd ../todos && pnpm test

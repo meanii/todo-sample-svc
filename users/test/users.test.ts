@@ -75,15 +75,19 @@ describe(`users.test.ts`, () => {
 
         describe(`duplicate email`, () => {
             it(`should return 409`, async () => {
+                const payload = {
+                    firstName: `Anil`,
+                    lastName: `Chauhan`,
+                    role: `user`,
+                    email: `anilchauhanxda@gmail.com`,
+                    password: `password`,
+                }
+                await supertest(server.getExpressApp())
+                    .post(`/users/v1`)
+                    .send(payload)
                 const response = await supertest(server.getExpressApp())
                     .post(`/users/v1`)
-                    .send({
-                        firstName: `Anil`,
-                        lastName: `Chauhan`,
-                        role: `user`,
-                        email: `anilchauhanxda@gmail.com`,
-                        password: `password`,
-                    })
+                    .send(payload)
                     .expect(409);
                 
                 expect(response.status).toBe(409);
