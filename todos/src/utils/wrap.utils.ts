@@ -1,0 +1,1 @@
+export const wrap = (fn: Function) => (...args: any[]) => fn(...args).catch(args[2]);

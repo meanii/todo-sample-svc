@@ -1,0 +1,49 @@
+services:
+
+  # Users service, the API for the users management
+  users:
+    image: meanii/todo-users
+
+    build:
+      context: ./users
+      dockerfile: Dockerfile
+
+    ports:
+      - "3000:3000"
+    
+    env_file:
+      - .env
+    
+    container_name: todo-users
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    
+  
+  # Todos service, the API for the todos management
+  todos:
+    image: meanii/todo-todos
+
+    build:
+      context: ./todos
+      dockerfile: Dockerfile
+
+    ports:
+      - "3001:3001"
+
+    env_file:
+      - .env
+    
+    container_name: todo-todos
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+      - users
+
+  # MongoDB, the database service
+  mongodb:
+    image: mongo:latest
+    container_name: todo-mongodb
+    restart: unless-stopped
+    volumes:
+      - "./mongodb_data:/data/db"
