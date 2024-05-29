@@ -46,3 +46,20 @@ jobs:
               run: |
                   cd users && pnpm test
                   cd ../todos && pnpm test
+
+    deploy:
+        name: Deploy to production
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setup SSH connection
+              uses: webfactory/ssh-agent@v0.5.3
+              with:
+                  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+            
+            - name: Checkout code
+              uses: actions/checkout@v2
+            
+            - name: Deploy to production
+              run: |
+                ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd /root/demo/todo-sample-svc && git pull && docker compose build && docker compose up -d'
+            
