@@ -153,7 +153,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: John
+                lastName:
+                  type: string
+                  example: Doe
+                email:
+                  type: string
+                  example:
+                password:
+                  type: string
+                  example: ''
+                role:
+                  type: string
+                  example: 'user'
+                  enum:
+                    - user
+                    - admin
 
       responses:
         '201':
