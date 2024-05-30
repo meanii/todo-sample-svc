@@ -6,8 +6,7 @@ A sample todo service with user management for demonstration purposes, written i
 - [Installation](#installation)
     - [Legacy](#legacy)
     - [Docker](#docker)
-- [Usage](#usage)
-- [API](#api)
+- [Docs](#docs)
 
 ## Installation
 
@@ -56,7 +55,6 @@ docker compose build
 docker compose up -d
 ```
 
-
-## Usage
-Once the server is running, you can access the API at http://localhost:3001.
-To interact with the API, you can use tools like Postman or curl.
+## Docs
+- Users Swagger: [hhttps://apis.users.demo.meanii.dev/users/docs](https://apis.users.demo.meanii.dev/users/docs)
+- Todos Swagger: [https://apis.tasks.demo.meanii.dev/todos/docs](https://apis.tasks.demo.meanii.dev/todos/docs)
