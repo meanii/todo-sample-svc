@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start": "EXPOSE=3001 tsc && node dist/index.js",
+    "start": "EXPOSE=3000 tsc && node dist/index.js",
     "start:dev": "PORT=3001 nodemon -e .yaml src/index.ts",
     "build": "tsc",
     "test": "jest"
