@@ -15,7 +15,7 @@ export abstract class UsersController {
      */
     static async createUser(req: Request, res: Response, _next: NextFunction) {
         const user = await UsersService.createUser(req.body);
-        return res.status(201).json({status: 201, message: 'User created', data: user});
+        return res.status(201).json({status: 201, message: 'User created', data: { _id: user._id }});
     }
 
     /**

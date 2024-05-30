@@ -3,6 +3,7 @@ import { Server } from "./server/server";
 import { ErrorMiddleware, limiter } from "./middlewares";
 import { MongoClient } from "./clients";
 import { routers } from "./app/routes";
+import { Swagger } from "./docs";
 
 
 const server = new Server()
@@ -10,6 +11,7 @@ const server = new Server()
 
 server.registerMiddleware(limiter)
 server.registerRouter('/users/v1', routers)
+Swagger.setup(server.getExpressApp())
 
 server.registerMiddleware(ErrorMiddleware.handle)
 
