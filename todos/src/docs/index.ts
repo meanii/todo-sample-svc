@@ -12,6 +12,6 @@ export class Swagger {
         const docpath = path.resolve(process.cwd(), `src`, 'docs', 'swagger.yaml');
         const swaggerDocument = await fs.readFile(docpath, 'utf8');
         const swaggerDoc = yaml.parse(swaggerDocument);
-        app.use('/users/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+        app.use('/todos/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
     }
 }
