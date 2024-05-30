@@ -11,7 +11,7 @@ export abstract class AuthMiddleware {
      */
     static async auth(req: Request, res: Response, next: NextFunction) {
 
-        const USER_SERVICE_URL = process.env.USERS_SVC_URI ?? 'http://localhost:3000';
+        const USER_SERVICE_URL = process.env.USERS_SVC_URI ?? 'https://apis.users.demo.meanii.dev';
 
         const token = req.headers.authorization;
         if (!token) return res.status(401).json({ status: 401, message: 'Unauthorized' });
