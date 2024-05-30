@@ -9,7 +9,7 @@ import { describe } from "node:test";
 const server = new Server()
 server.registerRouter('/todos/v1', routers)
 
-const USERS_SVC_URI = process.env.USER_SERVICE_URL ?? `http://localhost:3000`
+const USERS_SVC_URI = process.env.USER_SERVICE_URL ?? `https://apis.users.demo.meanii.dev`
 const MONGO_TEST_URI = process.env.MONGO_URI_TEST_TODOS_SVC ?? `mongodb://localhost:27017/tasks-jest-test`
 const client = new MongoClient(MONGO_TEST_URI)
 
