@@ -11,7 +11,7 @@ export abstract class AuthMiddleware {
      */
     static async auth(req: Request, res: Response, next: NextFunction) {
 
-        const USER_SERVICE_URL = process.env.USER_SERVICE_URL ?? 'http://localhost:3000';
+        const USER_SERVICE_URL = process.env.USERS_SVC_URI ?? 'http://localhost:3000';
 
         const token = req.headers.authorization;
         if (!token) return res.status(401).json({ status: 401, message: 'Unauthorized' });
@@ -24,6 +24,7 @@ export abstract class AuthMiddleware {
             res.locals.isAdmin = decoded.role === 'admin';
             return next();
         } catch (error: any) {
+            console.log(`AuthMiddleware.auth: ${error.response?.data?.message}`, error)
             return next(new CError(error?.response?.status, error.response?.data?.message));
         }
     }
