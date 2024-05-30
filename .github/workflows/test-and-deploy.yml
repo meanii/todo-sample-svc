@@ -48,6 +48,7 @@ jobs:
                   cd ../todos && pnpm test
 
     deploy:
+        needs: [test]
         name: Deploy to production
         runs-on: ubuntu-latest
         steps:
